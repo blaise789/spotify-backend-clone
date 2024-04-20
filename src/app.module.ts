@@ -5,6 +5,9 @@ import { LoggerMiddleware } from './common/middlewares/logger/logger.middleware'
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
 import { Song } from './entities/song.entity';
+import { User } from './entities/user.entity';
+import { Artist } from './entities/artist.entity';
+import { PlaylistModule } from './playlist/playlist.module';
 
 @Module({
   imports: [SongsModule,TypeOrmModule.forRoot({
@@ -20,12 +23,12 @@ import { Song } from './entities/song.entity';
     username:"postgres",
     password:"Blaise@123",
     database:'spotify',
-    entities:[Song],
+    entities:[Song,User,Artist],
     logging:true,
     synchronize:true
 
 
-  })],
+  }), PlaylistModule],
   
 })
 export class AppModule implements NestModule{
