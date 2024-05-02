@@ -8,6 +8,7 @@ import { Song } from './entities/song.entity';
 import { User } from './entities/user.entity';
 import { Artist } from './entities/artist.entity';
 import { PlaylistModule } from './playlist/playlist.module';
+import { PlayList } from './entities/playlists.entity';
 
 @Module({
   imports: [SongsModule,TypeOrmModule.forRoot({
@@ -23,7 +24,7 @@ import { PlaylistModule } from './playlist/playlist.module';
     username:"postgres",
     password:"Blaise@123",
     database:'spotify',
-    entities:[Song,User,Artist],
+    entities:[Song,User,Artist,PlayList],
     logging:true,
     synchronize:true
 

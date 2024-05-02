@@ -1,7 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Song } from '../entities/song.entity';
 import { CreateSongDto } from './dto/create-song.dto';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UpdateSongDto } from 'src/songs/dto/update-song.dto';
 import { IPaginationOptions, Pagination, paginate } from 'nestjs-typeorm-paginate';
@@ -20,31 +20,43 @@ export class SongsService {
     findall() {
         return this.songsRepository.find();
     }
-    createSong(createSong: CreateSongDto) {
+   async createSong(createSong: CreateSongDto) {
         const song=new Song()
-        console.log(song)
-        return this.songsRepository.save(createSong)
+        song.title=createSong.title
+        song.artists=createSong.artists
+        song.releasedDate=createSong.releasedDate
+        song.duration=createSong.duration
+        song.lyrics=createSong.lyrics
+        
+    
+        let artists=await this.artistRepository.findByIds(createSong.artists)
+        console.log(artists)
+        song.artists=artists
+        return this.songsRepository.save(song)
 
     }
-    updateSong(id: number, updatedSong: UpdateSongDto) {
-        if (this.songsRepository.findOneByOrFail({ id })) {
-            return this.songsRepository.update(id, updatedSong)
-        }
-        return "user not found"
+   async updateSong(id: number, updatedSong: UpdateSongDto) {
+     const song= await this.songsRepository.findOneByOrFail({ id })
+    if(song){
+    return this.songsRepository.update(id, updatedSong)
 
+    }
+        
+    
     }
     async findSong(id: number) {
-        return this.songsRepository.findOneByOrFail({ id }).catch(err => console.log(err))
-
-    }
-    deleteSong(id: number): boolean {
-        if (this.songsRepository.findOneByOrFail({ id })) {
-            this.songsRepository.delete({ id })
-            return true
+        const song=await this.songsRepository.findOneByOrFail({id})
+        if(song){
+            return song;
         }
-        else {
-            return false
+    } 
+    async deleteSong(id:number){
+        const song=await this.songsRepository.findOneByOrFail({id})
+        // console.log(song)
+        if (song){
+            await this.songsRepository.delete({id})
         }
+        
 
     }
 

@@ -18,4 +18,6 @@ export class CreateSongDto{
     @IsOptional()
     @IsString()
     lyrics:string
+
 }
+type Password=string | number
