@@ -12,4 +12,5 @@ name:string
 songs:Song[] 
 @ManyToOne(()=>User,(user)=>user.playlists)
 user:User
+    playList: Song;
 }

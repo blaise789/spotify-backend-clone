@@ -9,9 +9,14 @@ import { User } from './entities/user.entity';
 import { Artist } from './entities/artist.entity';
 import { PlaylistModule } from './playlist/playlist.module';
 import { PlayList } from './entities/playlists.entity';
+import { AuthModule } from './auth/auth.module';
+import { StrategyModule } from './strategy/strategy.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [SongsModule,TypeOrmModule.forRoot({
+  imports: [
+    ConfigModule.forRoot({isGlobal: true}),
+    TypeOrmModule.forRoot({
     // type:"mysql",
     // host:'localhost',
     // port:3306,
@@ -29,7 +34,7 @@ import { PlayList } from './entities/playlists.entity';
     synchronize:true
 
 
-  }), PlaylistModule],
+  }),SongsModule, PlaylistModule, AuthModule, StrategyModule],
   
 })
 export class AppModule implements NestModule{

@@ -1,5 +1,6 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { PlayList } from "./playlists.entity";
+import { Exclude } from "class-transformer";
 
 @Entity("users")
 export class User{
@@ -12,6 +13,7 @@ export class User{
     @Column({unique:true})
     email:string
     @Column()
+    @Exclude()
     password:string
     @ManyToOne(()=>PlayList)
     playlists:PlayList
