@@ -1,10 +1,9 @@
-import { Body, Controller, DefaultValuePipe, Delete, Get, HttpException, HttpStatus, Param, ParseIntPipe, Post, Put } from '@nestjs/common';
+import { Body, Controller, DefaultValuePipe, Delete, Get, HttpException, HttpStatus, Param, ParseIntPipe, Post, Put, Req, Request, UseGuards } from '@nestjs/common';
 import { SongsService } from './songs.service';
 import { CreateSongDto } from 'src/songs/dto/create-song.dto';
 import { UpdateSongDto } from 'src/songs/dto/update-song.dto';
-import { Query } from '@nestjs/common';
-import { Pagination } from 'nestjs-typeorm-paginate';
-import { Song } from '../entities/song.entity';
+import { JwtGuard } from '../auth/guards/auth.guard';
+
 
 @Controller('songs')
 export class SongsController {
@@ -17,8 +16,12 @@ export class SongsController {
     //     return this.songService.paginate({ page, limit })
     //     // return this.songService.findall()
     // }
+    // @UseGuards(JwtGuard)
     @Get()
-    findAllSongs(){
+    @UseGuards(JwtGuard)
+    findAllSongs(@Request() req){
+        console.log(req.user)
+        console.log("hello")
         return this.songService.findall()
 
     }

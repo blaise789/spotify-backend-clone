@@ -10,7 +10,6 @@ import { Artist } from './entities/artist.entity';
 import { PlaylistModule } from './playlist/playlist.module';
 import { PlayList } from './entities/playlists.entity';
 import { AuthModule } from './auth/auth.module';
-import { StrategyModule } from './strategy/strategy.module';
 import { ConfigModule } from '@nestjs/config';
 
 @Module({
@@ -25,24 +24,20 @@ import { ConfigModule } from '@nestjs/config';
     // database:'spotify',
     type:"postgres",
     host:"localhost",
-    port:5500,
-    username:"postgres",
-    password:"Blaise@123",
-    database:'spotify',
+    port:parseInt(process.env.DB_PORT),
+    username:process.env.DB_USERNAME,
+    password:process.env.DB_PASSWORD,
+    database:process.env.DB_DATABASE,
     entities:[Song,User,Artist,PlayList],
     logging:true,
     synchronize:true
 
 
-  }),SongsModule, PlaylistModule, AuthModule, StrategyModule],
+  }),SongsModule, PlaylistModule, AuthModule,],
   
 })
 export class AppModule implements NestModule{
-  constructor(private datasource:DataSource){
-    if(datasource.driver.database=="spotify"){
-      console.log("database connected")
-    }
-  }
+
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(LoggerMiddleware).forRoutes('songs')
   }
