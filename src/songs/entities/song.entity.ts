@@ -6,8 +6,8 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Artist } from './artist.entity';
-import { PlayList } from './playlists.entity';
+import { Artist } from 'src/artists/entities/artist.entity';
+import { PlayList } from 'src/playlist/entities/playlists.entity';
 
 @Entity('songs')
 export class Song {
@@ -15,7 +15,7 @@ export class Song {
   id: number;
   @Column()
   title: string;
-  @ManyToMany(() => Artist, (artist) => artist.songs)
+  @ManyToMany(() => Artist, (artist) => artist.songs, { cascade: true })
   @JoinTable({ name: 'songs_artists' })
   artists: Artist[];
   @Column({ type: 'date' })
