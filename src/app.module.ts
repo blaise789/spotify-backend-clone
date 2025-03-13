@@ -11,6 +11,7 @@ import { PlaylistModule } from './playlist/playlist.module';
 import { PlayList } from './entities/playlists.entity';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
+import { ArtistsModule } from './artists/artists.module';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { ConfigModule } from '@nestjs/config';
     SongsModule,
     PlaylistModule,
     AuthModule,
+    ArtistsModule,
   ],
 })
 export class AppModule implements NestModule {
