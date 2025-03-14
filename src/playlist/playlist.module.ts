@@ -3,7 +3,7 @@ import { PlaylistController } from './playlist.controller';
 import { PlaylistService } from './playlist.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Song } from 'src/songs/entities/song.entity';
-import { User } from 'src/entities/user.entity';
+import { User } from 'src/users/entities/user.entity';
 import { PlayList } from 'src/playlist/entities/playlists.entity';
 
 @Module({

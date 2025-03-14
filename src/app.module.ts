@@ -6,10 +6,11 @@ import { PlaylistModule } from './playlist/playlist.module';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { ArtistsModule } from './artists/artists.module';
-import { User } from './entities/user.entity';
+import { User } from 'src/users/entities/user.entity';
 import { Artist } from './artists/entities/artist.entity';
 import { Song } from './songs/entities/song.entity';
 import { PlayList } from './playlist/entities/playlists.entity';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { PlayList } from './playlist/entities/playlists.entity';
     PlaylistModule,
     AuthModule,
     ArtistsModule,
+    UsersModule,
   ],
 })
 export class AppModule {}

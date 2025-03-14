@@ -1,5 +1,5 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { PlayList } from '../playlist/entities/playlists.entity';
+import { PlayList } from 'src/playlist/entities/playlists.entity';
 import { Exclude } from 'class-transformer';
 
 @Entity('users')

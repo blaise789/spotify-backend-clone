@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Song } from 'src/songs/entities/song.entity';
-import { User } from 'src/entities/user.entity';
+import { User } from 'src/users/entities/user.entity';
 import { Repository } from 'typeorm';
 import { CreatePlayListDto } from './dtos/create-playlist.dto';
 import { PlayList } from 'src/playlist/entities/playlists.entity';
@@ -20,7 +20,6 @@ export class PlaylistService {
     //   return this.
 
     const playList = new PlayList();
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     playList.name = createPlaylistDto.name;
     const songs = await this.songRepository
       .findByIds(createPlaylistDto.songs)
