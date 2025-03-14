@@ -70,11 +70,20 @@ export class AuthService {
     }
   }
 
-  async validateUser(user: any) {
-    const userExists = await this.userRepo.findOneBy({ id: user.email });
-    if (!userExists) {
-      throw new UnauthorizedException('Invalid token');
+  async handleAuthWithGoogle(user) {
+    console.log(user);
+    if (!user) {
+      throw new ForbiddenException('Not authenticated');
     }
-    return userExists;
+
+    let userExists = await this.findUserByEmail(user.email);
+    if (!userExists) {
+      const newUser = await this.userRepo.save(user);
+      return newUser;
+    }
+    return this.login(user);
+  }
+  async findUserByEmail(email: string) {
+    return await this.userRepo.findOneBy({ email });
   }
 }

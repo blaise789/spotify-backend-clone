@@ -14,14 +14,8 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
       callbackURL: process.env.GOOGLE_CALLBACK_URL,
       scope: ['email', 'profile'],
  
-      // proxy: true, // if you're behind a reverse proxy (like Nginx)
     });
-    // console.log('Google Strategy initialized with:', {
-    //   clientID: process.env.GOOGLE_CLIENT_ID ? 'Set' : 'Not set',
-    //   clientSecret: process.env.GOOGLE_CLIENT_SECRET ? 'Set' : 'Not set',
-    //   // callbackURL: 'http://localhost:5000/auth/google/callback',
-    //   callbackUrl:process.env.GOOGLE_CALLBACK_URL
-    // });
+ 
   }
 
   async validate(
@@ -32,7 +26,6 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
   ): Promise<any> {
     try {
       const { name, emails, photos } = profile;
-      console.log(name, emails);
       const user = {
         email: emails[0].value,
         firstName: name.givenName,
@@ -40,7 +33,6 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
         picture: photos[0].value,
         accessToken,
       };
-      console.log(user);
       done(null, user);
     } catch (error: any) {
       return done(error, false);

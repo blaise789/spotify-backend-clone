@@ -46,8 +46,12 @@ export class AuthController {
   googleAuthRedirect(@Req() req) {}
   @Get('google/callback')
   @UseGuards(GoogleOauthGuard)
+
   async googleAuthCallback(@Req() req) {
-    console.log(req.user);
-    return { success: true };
+  const user=req.user
+  console.log(user)
+  const {firstName,lastName,email}=user
+  await this.authServices.handleAuthWithGoogle({firstName,lastName,email})
+    
   }
 }

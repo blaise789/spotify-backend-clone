@@ -12,9 +12,8 @@ export class User {
   lastName: string;
   @Column({ unique: true })
   email: string;
-  @Column()
-  @Exclude()
-  password: string;
+  @Column({ nullable: true })
+  password?: string;
   @ManyToOne(() => PlayList)
   playlists: PlayList;
 }

@@ -16,12 +16,10 @@ import { GoogleStrategy } from './strategy/google.strategy';
       defaultStrategy: 'google',
     }),
     JwtModule.register({
-      secret: process.env.JWT_SECRET,
-      signOptions: { expiresIn: '1h' },
+      global: true,
     }),
-    
   ],
   controllers: [AuthController],
-  providers: [AuthService, GoogleStrategy],
+  providers: [AuthService, GoogleStrategy, JwtStrategy],
 })
 export class AuthModule {}

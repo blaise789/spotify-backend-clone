@@ -7,10 +7,21 @@ import {
   ParseIntPipe,
 } from '@nestjs/common';
 import { SongsService } from './songs.service';
+import { ApiBody, ApiConsumes } from '@nestjs/swagger';
+import { CreateSongDto } from './dto/create-song.dto';
 
 @Controller('songs')
 export class SongsController {
   constructor(private songService: SongsService) {}
+
+  @ApiConsumes(
+      
+  )
+  @ApiBody({
+    description: 'Create a new song',
+    type: CreateSongDto,
+  })
+  async createSong() {}
 
   @Delete(':id')
   async deleteSong(@Param('id', ParseIntPipe) id) {

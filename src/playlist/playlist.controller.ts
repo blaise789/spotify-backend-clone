@@ -16,7 +16,6 @@ export class PlaylistController {
   async createPlayList(
     @Body() playListDto: CreatePlayListDto,
   ): Promise<PlayList> {
-    // console.log(playListDto)
     try {
       return this.playlistService.createPlayList(playListDto);
     } catch (error) {
