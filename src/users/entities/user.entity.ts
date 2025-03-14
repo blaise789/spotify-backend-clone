@@ -13,7 +13,10 @@ export class User {
   @Column({ unique: true })
   email: string;
   @Column({ nullable: true })
+  @Exclude()
   password?: string;
   @ManyToOne(() => PlayList)
   playlists: PlayList;
+  @Column({ nullable: true })
+  provider: string;
 }

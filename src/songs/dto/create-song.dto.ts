@@ -1,23 +1,44 @@
-import { IsArray, IsDateString, IsMilitaryTime, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
+import { ApiProperty } from '@nestjs/swagger';
+import {
+  IsArray,
+  IsDateString,
+  IsMilitaryTime,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 
-export class CreateSongDto{
-    @IsString()
-    @IsNotEmpty()
-    readonly title;
-    @IsNotEmpty() 
-    @IsArray()
-    @IsNumber({},{each:true})
-    readonly artists
-    @IsDateString()
-    // @IsNotEmpty()
-    @IsOptional()
-    readonly releasedDate:Date;
-    @IsMilitaryTime()
-    @IsNotEmpty()
-    readonly duration:Date;
-    @IsOptional()
-    @IsString()
-    lyrics:string
-
+export class CreateSongDto {
+  @IsString()
+  @IsNotEmpty()
+  @ApiProperty()
+  title: string;
+  @IsNotEmpty()
+  @IsArray()
+  @IsNumber({}, { each: true })
+  @ApiProperty({
+    type: Array,
+  })
+  artists: string[];
+  @IsDateString()
+  // @IsNotEmpty()
+  @IsOptional()
+  @ApiProperty()
+  releasedDate: Date;
+  @IsMilitaryTime({})
+  @IsNotEmpty()
+  @ApiProperty({
+  })
+  duration: Date;
+  @IsOptional()
+  @IsString()
+  @ApiProperty()
+  lyrics: string;
+  @ApiProperty({
+    description: 'audio file for song',
+    type: 'string',
+    format: 'binary',
+  })
+  file: any;
 }
-type Password=string | number

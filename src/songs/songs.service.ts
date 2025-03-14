@@ -28,5 +28,10 @@ export class SongsService {
     if (song) {
       await this.songsRepository.delete({ id });
     }
+
+  }
+  async createSong(createSongDto: any) {
+
+
   }
 }

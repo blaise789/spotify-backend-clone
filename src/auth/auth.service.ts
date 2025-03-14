@@ -42,6 +42,9 @@ export class AuthService {
     if (!user) {
       throw new ForbiddenException('user not found');
     }
+    if (user.provider == 'google') {
+      return this.signToken(user.id, user.email);
+    }
     const passwordMatches = await bcrypt.compare(
       userDto.password,
       user.password,
